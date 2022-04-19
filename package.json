@@ -1,6 +1,6 @@
 {
-    "name": "app-service-hello-world",
-    "description": "Simple Hello World Node.js sample for Azure App Service",
+    "name": "damovisa/haikus-for-codespaces",
+    "description": "Simple App for Codespaces",
     "version": "0.0.1",
     "private": true,
     "license": "MIT",
