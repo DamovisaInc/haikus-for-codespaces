@@ -2,7 +2,6 @@
     "name": "@damovisainc/haikus-for-codespaces",
     "description": "Simple App for Codespaces",
     "version": "0.0.1",
-    "private": true,
     "license": "MIT",
     "author": "Microsoft",
     "scripts": {
