@@ -16,7 +16,6 @@ jobs:
         with:
           node-version: 16
       - run: npm ci
-      - run: npm test
 
   publish-gpr:
     needs: build
@@ -29,6 +28,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+          scope: ${{ github.repository_owner }}
           registry-url: https://npm.pkg.github.com/
       - run: npm ci
       - run: npm publish
