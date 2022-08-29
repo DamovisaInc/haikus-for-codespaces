@@ -8,7 +8,9 @@ app.use(express.static('public'))
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-  res.render('index', {haikus: haikus});
+  // randomize haikus
+  let randomHaikus = haikus.sort(() => Math.random() - 0.5);
+  res.render('index', {haikus: randomHaikus});
 });
 
 app.listen(port); 
