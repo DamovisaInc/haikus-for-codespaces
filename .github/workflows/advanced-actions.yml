@@ -22,12 +22,20 @@ jobs:
         run: echo "::set-output name=triggeringuser::${{ github.triggering_actor }}"
       - id: getrunattempt
         name: Get the run attempt
-        run: echo "::set-output name=runattempt::${{ github.run_attempt }}"
+        run: echo "::set-output name=runattempt::${{ github.run_attempt }}.0"
 
   show_rerun_user:
     needs: set_output_variables
-    if: ${{ (github.jobs.set_output_variables.outputs.run_attempt-1) > 0 }} 
+    if: ${{ github.jobs.set_output_variables.outputs.run_attempt > 1 }} 
     runs-on: ubuntu-latest
     steps:
       - name: Output triggering user
         run: echo "Rerun number ${{ needs.set_output_variables.outputs.run_attempt }} triggered by ${{ needs.set_output_variables.outputs.triggering_user }}
+        
+  show_rerun_user2:
+    needs: set_output_variables
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output triggering user
+        run: echo "Rerun number ${{ needs.set_output_variables.outputs.run_attempt }} triggered by ${{ needs.set_output_variables.outputs.triggering_user }}
+        
