@@ -32,11 +32,3 @@ jobs:
         with:
           name: rerun
           path: artifact.txt
-        
-  show_rerun_user2:
-    needs: set_output_variables
-    runs-on: ubuntu-latest
-    steps:
-      - name: Output triggering user
-        run: echo "Rerun number ${{ github.run_attempt }} triggered by ${{ needs.set_output_variables.outputs.triggering_user }}"
-        
