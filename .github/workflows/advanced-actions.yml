@@ -26,7 +26,7 @@ jobs:
 
   show_rerun_user:
     needs: set_output_variables
-    if: github.jobs.set_output_variables.outputs.run_attempt > 1 
+    if: ${{ (github.jobs.set_output_variables.outputs.run_attempt-1) > 0 }} 
     runs-on: ubuntu-latest
     steps:
       - name: Output triggering user
