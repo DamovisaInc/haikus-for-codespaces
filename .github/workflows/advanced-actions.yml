@@ -15,22 +15,18 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       triggering_user: ${{ steps.getuser.outputs.triggeringuser }}
-      run_attempt: ${{ steps.getrunattempt.outputs.runattempt }}
     steps:
       - id: getuser
         name: Get the triggering user
         run: echo "::set-output name=triggeringuser::${{ github.triggering_actor }}"
-      - id: getrunattempt
-        name: Get the run attempt
-        run: echo "::set-output name=runattempt::${{ github.run_attempt }}.0"
 
   show_rerun_user:
     needs: set_output_variables
-    if: ${{ github.jobs.set_output_variables.outputs.run_attempt > 1 }} 
+    if: ${{ github.run_attempt > 1 }} 
     runs-on: ubuntu-latest
     steps:
       - name: Output triggering user
-        run: echo "Rerun number ${{ needs.set_output_variables.outputs.run_attempt }} triggered by ${{ needs.set_output_variables.outputs.triggering_user }}" > artifact.txt
+        run: echo "Rerun number ${{ github.run_attempt }} triggered by ${{ needs.set_output_variables.outputs.triggering_user }}" > artifact.txt
       - name: upload artifact
         uses: actions/upload-artifact@v3.1.0
         with:
@@ -42,5 +38,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Output triggering user
-        run: echo "Rerun number ${{ needs.set_output_variables.outputs.run_attempt }} triggered by ${{ needs.set_output_variables.outputs.triggering_user }}"
+        run: echo "Rerun number ${{ github.run_attempt }} triggered by ${{ needs.set_output_variables.outputs.triggering_user }}"
         
