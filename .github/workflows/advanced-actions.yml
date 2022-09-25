@@ -19,7 +19,7 @@ jobs:
     steps:
       - id: getuser
         name: Get the triggering user
-        run: echo "::set-output name=triggeringuser::${{ github.triggering_user }}"
+        run: echo "::set-output name=triggeringuser::${{ github.triggering_actor }}"
       - id: getrunattempt
         name: Get the run attempt
         run: echo "::set-output name=runattempt::${{ github.run_attempt }}"
