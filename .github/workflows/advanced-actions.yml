@@ -1,0 +1,33 @@
+
+name: advanced actions test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  output_runner:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output the runner context
+        run: echo '${{ toJSON(runner) }}'
+
+  set_output_variables:
+    runs-on: ubuntu-latest
+    outputs:
+      triggering_user: ${{ steps.getuser.outputs.triggeringuser }}
+      run_attempt: ${{ steps.getrunattempt.outputs.runattempt }}
+    steps:
+      - id: getuser
+        name: Get the triggering user
+        run: echo "::set-output name=triggeringuser::${{ github.triggering_user }}"
+      - id: getrunattempt
+        name: Get the run attempt
+        run: echo "::set-output name=runattempt::${{ github.run_attempt }}"
+
+  show_rerun_user:
+    needs: set_output_variables
+    if: ${{ jobs.set_output_variables.outputs.run_attempt > 1 }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output triggering user
+        run: echo "Rerun number ${{ needs.set_output_variables.outputs.run_attempt }} triggered by ${{ needs.set_output_variables.outputs.triggering_user }}
