@@ -8,7 +8,14 @@ app.use(express.static('public'))
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-  res.render('index', {haikus: haikus});
+  const query = req.query.q;
+  let filteredHaikus = haikus;
+
+  if (query) {
+    filteredHaikus = haikus.filter(haiku => haiku.text.includes(query));
+  }
+
+  res.render('index', {haikus: filteredHaikus, query: query});
 });
 
 app.listen(port); 
